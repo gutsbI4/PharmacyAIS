@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:PharmacyAIS.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:SuppliersOrderViewModel"
+             x:Class="PharmacyAIS.Views.SuppliersOrderView">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="6*"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<TextBox Grid.Row="0" Classes="Search" VerticalAlignment="Top" Margin="180,20,40,20"
+                 Watermark="Поиск по номеру поставки, товарам и поставщику" Height="30" ZIndex="1"
+                 Text="{Binding SearchString}"></TextBox>
+		<DataGrid Grid.Row="1" Background="White" Items="{Binding Supplies}" Margin="10,0" CanUserSortColumns="False" IsReadOnly="True">
+			<DataGrid.Columns>
+				<DataGridTextColumn Foreground="Black" Binding="{Binding SupplieId}" Header="Номер поставки"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Поставщик" Width="250">
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                                    <Binding Path="Supplier.Name"></Binding>
+                                    <Binding Path="Supplier.Address"></Binding>
+                                    <Binding Path="Supplier.ContactInfo"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Foreground="Black" Binding="{Binding Quantity, StringFormat={}{0} шт.}" Header="Всего поставлено"></DataGridTextColumn>
+				<DataGridTextColumn Foreground="Black" Binding="{Binding TotalCost, StringFormat={}{0} руб.}" Header="Стоимость поставки"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Поставленные товары:" Width="270">
+                    <DataTemplate>
+                        <TextBlock Foreground="Black" TextWrapping="Wrap" FontSize="12"
+                                   Text="{Binding SupplieProduct, Mode=OneWay, Converter={StaticResource ListProductSupplieToStringConverter}}"></TextBlock>
+                    </DataTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+		</DataGrid>
+
+	</Grid>
+</UserControl>

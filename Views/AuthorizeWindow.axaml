@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" Width="350" Height="450"
+        x:Class="PharmacyAIS.Views.AuthorizeWindow"
+        Title="Авторизация" Icon="/Assets/icon.png"
+		SystemDecorations="None" TransparencyLevelHint="Transparent" 
+		Background="Transparent" WindowStartupLocation="CenterScreen">
+	
+		<Border CornerRadius="15" Background="{StaticResource BodyBackgroundColor}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="8*"></RowDefinition>
+				</Grid.RowDefinitions>
+			<Image Width="20" Source="/Assets/exit.png" HorizontalAlignment="Right" Margin="7" VerticalAlignment="Top"
+				   Cursor="Hand" PointerPressed="OnClick"></Image>
+				<StackPanel Margin="30,0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Spacing="20">
+					<Image Width="70" Height="70" Source="/Assets/icon.png" Stretch="Uniform"></Image>
+					<TextBlock Text="PharmacyAIS" FontSize="25" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+				</StackPanel>
+			<StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="35">
+			<TextBox Width="250" Height="35" Text="{Binding Login}" Watermark="Имя пользователя"></TextBox>
+			<TextBox Height="35" Text="{Binding Password}" Watermark="Пароль" PasswordChar="*" VerticalContentAlignment="Center"></TextBox>
+			<Button Width="250"  CornerRadius="5" HorizontalAlignment="Center"
+					Content="Войти" HorizontalContentAlignment="Center" FontSize="15"
+					Height="45" Classes="Login" VerticalContentAlignment="Center"
+					Command="{Binding AuthorizeCommand}" Margin="0,30,0,0" Cursor="Hand"
+				></Button>
+			<TextBlock Text="{Binding Result}" Foreground="White" HorizontalAlignment="Center"></TextBlock>
+		</StackPanel>
+			</Grid>
+		</Border>
+		
+
+	
+</Window>

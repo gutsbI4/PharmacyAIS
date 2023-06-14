@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Add Resources Here -->
+	<SolidColorBrush Color="#363D42" x:Key="BodyBackgroundColor"></SolidColorBrush>
+	<SolidColorBrush Color="#4B5764" x:Key="MenuBackgroundColor"></SolidColorBrush>
+	<SolidColorBrush Color="#7D7D7D" x:Key="ActiveButtonBackgroundColor"></SolidColorBrush>
+    <SolidColorBrush Color="#2A5CA7" x:Key="TitleMedicamentForegroundColor"></SolidColorBrush>
+    <SolidColorBrush Color="#0A2A7E" x:Key="TitleManufacturerForegroundColor"></SolidColorBrush>
+    <SolidColorBrush Color="#4477C3" x:Key="ButtonMedicamentBackgroundColor"></SolidColorBrush>
+    <SolidColorBrush Color="#002A68" x:Key="PointeRoverButtonMedicamentBackgroundColor"></SolidColorBrush>
+</ResourceDictionary>

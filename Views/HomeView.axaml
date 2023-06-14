@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:PharmacyAIS.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:HomeViewModel"
+             x:Class="PharmacyAIS.Views.HomeView">
+<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+		</Grid.RowDefinitions>
+
+    <TextBlock Text="Невыполненные заказы:" FontSize="15" FontWeight="Bold"></TextBlock>
+		
+        
+    <DataGrid Grid.Row="1" Background="White" Items="{Binding Orders}" Margin="10" CanUserSortColumns="False" IsReadOnly="True">
+        <DataGrid.Columns>
+            <DataGridTextColumn Foreground="Black" Binding="{Binding OrderNumber}" Header="Номер заказа"></DataGridTextColumn>
+            <DataGridTextColumn Foreground="Black" Binding="{Binding OrderDate}" Header="Дата заказа"></DataGridTextColumn>
+            <DataGridTemplateColumn Header="Список лекарств" Width="150">
+                <DataTemplate>
+                    <TextBlock Foreground="Black" TextWrapping="Wrap"
+                               Text="{Binding ProductOrder,Mode=OneWay,Converter={StaticResource ListProductsToStringConverter}}"></TextBlock>
+                </DataTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Foreground="Black" Binding="{Binding TotalCost, StringFormat={}{0} руб.}" Header="Стоимость"></DataGridTextColumn>
+            <DataGridTemplateColumn Header="Покупатель">
+                <DataTemplate>
+                    <TextBlock TextWrapping="Wrap" Width="130">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{1} {0}., {2}">
+                                <Binding Path="Customer.FirstName[0]"></Binding>
+                                <Binding Path="Customer.LastName"></Binding>
+                                <Binding Path="Customer.ContactInfo"></Binding>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+    <TextBlock Grid.Row="2" FontSize="15" FontWeight="Bold" Text="Лекарства, которые заканчиваются"></TextBlock>
+    <DataGrid Grid.Row="3" Background="White" Items="{Binding Products}" Margin="10,0" CanUserSortColumns="False" IsReadOnly="True">
+        <DataGrid.Columns>
+            <DataGridTextColumn Foreground="Black" Binding="{Binding Name}" Header="Название лекарства"></DataGridTextColumn>
+            <DataGridTemplateColumn Header="Производитель" Width="350">
+                <DataTemplate>
+                    <TextBlock Text="{Binding Manufacturer.Name}" TextWrapping="Wrap"></TextBlock>
+                </DataTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Доза/кол-во">
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Dosage"></Binding>
+                                <Binding Path="Unit.Name"></Binding>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Foreground="Black" Binding="{Binding QuantityInStock}" Header="Количество"></DataGridTextColumn>
+            <DataGridTextColumn Foreground="Black" Binding="{Binding Price, StringFormat={}{0} руб.}" Header="Цена"></DataGridTextColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+	</Grid>
+
+</UserControl>

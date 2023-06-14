@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:PharmacyAIS.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:ClientsOrderViewModel"
+             x:Class="PharmacyAIS.Views.ClientsOrderView">
+	<Grid>
+		<Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0" Classes="Search" VerticalAlignment="Top" Margin="180,20,40,20"
+                 Watermark="Поиск по имени покупателя или номеру заказа" Height="30" ZIndex="1"
+                 Text="{Binding SearchString}"></TextBox>
+        <DataGrid Grid.Row="1" Background="White" Items="{Binding Orders}" Margin="10,0" CanUserSortColumns="False" IsReadOnly="True">
+					<DataGrid.Columns>
+						<DataGridTextColumn Foreground="Black" Binding="{Binding OrderNumber}" Header="Номер заказа"></DataGridTextColumn>
+                        <DataGridTextColumn Foreground="Black" Binding="{Binding OrderDate}" Header="Дата заказа"></DataGridTextColumn>
+						<DataGridTemplateColumn Header="Список лекарств" Width="150">
+                                <DataTemplate>
+                                    <TextBlock Foreground="Black" TextWrapping="Wrap"
+                                               Text="{Binding ProductOrder,Mode=OneWay,Converter={StaticResource ListProductsToStringConverter}}"></TextBlock>
+                                </DataTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Foreground="Black" Binding="{Binding TotalCost, StringFormat={}{0} руб.}" Header="Стоимость"></DataGridTextColumn>
+                        <DataGridTextColumn Foreground="Black" Binding="{Binding Status.Name}" Header="Статус"></DataGridTextColumn>
+                        <DataGridTextColumn Foreground="Black" Binding="{Binding SaleDate}" Header="Дата продажи"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Покупатель">
+							<DataTemplate>
+								<TextBlock TextWrapping="Wrap" Width="130">
+									<TextBlock.Text>
+										<MultiBinding StringFormat="{}{1} {0}., {2}">
+											<Binding Path="Customer.FirstName[0]"></Binding>
+                                            <Binding Path="Customer.LastName"></Binding>
+                                            <Binding Path="Customer.ContactInfo"></Binding>
+                                        </MultiBinding>
+									</TextBlock.Text>
+								</TextBlock>
+							</DataTemplate>
+						</DataGridTemplateColumn>
+						
+					</DataGrid.Columns>
+				</DataGrid>
+		
+	</Grid>
+</UserControl>
