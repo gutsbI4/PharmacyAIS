@@ -9,7 +9,6 @@
     <!-- Add Styles Here -->
 	<Style Selector="TextBlock">
         <Setter Property="Foreground" Value="Black"></Setter>
-		<Setter Property="FontFamily" Value="Inter"></Setter>
     </Style>
     <Style Selector="ListBox.MenuListBox">
         <Setter Property="Background" Value="Transparent"></Setter>
@@ -49,7 +48,6 @@
 		<Setter Property="BorderThickness" Value="2"></Setter>
 	</Style>
 	<Style Selector="Window">
-		<Setter Property="Background" Value="{StaticResource BodyBackgroundColor}"></Setter>
 		<Setter Property="WindowState" Value="FullScreen"></Setter>
 		<Setter Property="Height" Value="720"></Setter>
 		<Setter Property="Width" Value="1280"></Setter>
@@ -72,10 +70,7 @@
     <Style Selector="TabControl.Products > TabItem:selected /template/ Border#PART_SelectedPipe">
         <Setter Property="IsVisible" Value="False"></Setter>
     </Style>
-	<Style Selector="DataGridColumnHeader > TextBlock">
-		<Setter Property="Foreground" Value="Black"></Setter>
-    </Style>
-
+	
     <Style Selector="ListBox.MedicamentListBox >ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="BorderBrush" Value="Transparent"></Setter>

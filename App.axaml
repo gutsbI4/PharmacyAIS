@@ -3,26 +3,27 @@
              xmlns:local="using:PharmacyAIS"
              x:Class="PharmacyAIS.App"
              xmlns:cnv="clr-namespace:UP02.Converters">
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
+	<Application.DataTemplates>
+		<local:ViewLocator/>
+	</Application.DataTemplates>
 
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="/Resources/Colors/ColorsResourcesDictionary.axaml"></ResourceInclude>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Resources/Colors/ColorsResourcesDictionary.axaml"></ResourceInclude>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 		<cnv:BitmapValueConverter x:Key="BitmapValueConverter"></cnv:BitmapValueConverter>
-        <cnv:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter"></cnv:BitmapAssetValueConverter>
-        <cnv:ListProductsToStringConverter x:Key="ListProductsToStringConverter"></cnv:ListProductsToStringConverter>
-        <cnv:ListProductSupplieToStringConverter x:Key="ListProductSupplieToStringConverter"></cnv:ListProductSupplieToStringConverter>
-    </Application.Resources>
+		<cnv:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter"></cnv:BitmapAssetValueConverter>
+		<cnv:ListProductsToStringConverter x:Key="ListProductsToStringConverter"></cnv:ListProductsToStringConverter>
+		<cnv:ListProductSupplieToStringConverter x:Key="ListProductSupplieToStringConverter"></cnv:ListProductSupplieToStringConverter>
+	</Application.Resources>
 
-    <Application.Styles>
-        <FluentTheme Mode="Light"/>
-        <StyleInclude Source="/Resources/Styles/MainStyle.axaml"></StyleInclude>
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"></StyleInclude>
+	<Application.Styles>
+		<FluentTheme Mode="Light"/>
+		<StyleInclude Source="/Resources/Styles/MainStyle.axaml"></StyleInclude>
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"></StyleInclude>
 		<StyleInclude Source="/Resources/Styles/AuthorizeStyles.axaml"></StyleInclude>
-    </Application.Styles>
+		<StyleInclude Source="/Resources/Styles/DataGridStyles.axaml"></StyleInclude>
+	</Application.Styles>
 </Application>

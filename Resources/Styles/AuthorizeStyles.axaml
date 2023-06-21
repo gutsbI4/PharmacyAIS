@@ -15,4 +15,6 @@
         <Setter Property="TextBlock.Foreground" Value="White"></Setter>
         <Setter Property="Background" Value="{StaticResource PointeRoverButtonMedicamentBackgroundColor}"></Setter>
     </Style>
+	
+		
 </Styles>

@@ -1,0 +1,80 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+	<Style Selector="DataGridColumnHeader">
+		<Setter Property="AreSeparatorsVisible" Value="False"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+	</Style>
+	<Style Selector="DataGridColumnHeader /template/ ContentPresenter > TextBlock">
+		<Setter Property="TextBlock.Foreground" Value="Black"></Setter>
+	</Style>
+	<Style Selector="DataGridCell > TextBlock#CellTextBlock">
+		<Setter Property="Foreground" Value="Black"></Setter>
+		<Setter Property="TextAlignment" Value="Left"></Setter>
+		<Setter Property="VerticalAlignment" Value="Top"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Left"></Setter>
+		<Setter Property="TextWrapping" Value="Wrap"></Setter>
+		<Setter Property="FontSize" Value="14"></Setter>
+	</Style>
+	<Style Selector="DataGridCell > TextBlock">
+		<Setter Property="Foreground" Value="Black"></Setter>
+		<Setter Property="TextAlignment" Value="Left"></Setter>
+		<Setter Property="TextWrapping" Value="Wrap"></Setter>
+		<Setter Property="FontSize" Value="14"></Setter>
+	</Style>
+	<Style Selector="DataGrid">
+		<Setter Property="GridLinesVisibility" Value="Horizontal"></Setter>
+		<Setter Property="RowBackground" Value="Transparent"></Setter>
+		<Setter Property="AutoGenerateColumns" Value="False"></Setter>
+		<Setter Property="MaxColumnWidth" Value="150"></Setter>
+		<Setter Property="MinColumnWidth" Value="0"></Setter>
+	</Style>
+	<Style Selector="DataGridTextColumn > TextBlock">
+		<Setter Property="Foreground" Value="Black"></Setter>
+		<Setter Property="TextBlock.TextAlignment" Value="Left"></Setter>
+		<Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+		<Setter Property="TextBlock.FontSize" Value="14"></Setter>
+	</Style>
+	<Style Selector="DataGridDetailsPresenter#PART_DetailsPresenter">
+		
+	</Style>
+	<!--Разделитель заголовков от данных таблицы-->
+	<Style Selector="DataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
+		<Setter Property="Stroke" Value="#4A515A"></Setter>
+		<Setter Property="StrokeThickness" Value="2"></Setter>
+		<Setter Property="Opacity" Value="0.7"></Setter>
+	</Style>
+	<!--Разделитель между строками-->
+	<Style Selector="DataGridRow /template/ Rectangle#PART_BottomGridLine">
+		<Setter Property="Stroke" Value="#4A515A"></Setter>
+		<Setter Property="StrokeThickness" Value="2"></Setter>
+		<Setter Property="Opacity" Value="0.7"></Setter>
+	</Style>
+	<!--Стили для столбцов с числами -->
+	<Style Selector="DataGridCell.ColumnOfNumbers > TextBlock#CellTextBlock">
+		<Setter Property="FontFamily" Value="Courier New"></Setter>
+		<Setter Property="TextAlignment" Value="Right"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Right"></Setter>
+		<Setter Property="TextWrapping" Value="NoWrap"></Setter>
+		<Setter Property="DataGrid.MaxColumnWidth" Value="300"></Setter>
+	</Style>
+	<Style Selector="DataGridCell.ColumnOfNumbers > TextBlock">
+		<Setter Property="FontFamily" Value="Courier New"></Setter>
+		<Setter Property="TextAlignment" Value="Right"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Right"></Setter>
+		<Setter Property="TextWrapping" Value="NoWrap"></Setter>
+		<Setter Property="DataGrid.MaxColumnWidth" Value="300"></Setter>
+	</Style>
+	<Style Selector="DataGridTextColumn.ColumnOfNumbers">
+		<Setter Property="FontFamily" Value="Courier New"></Setter>
+		<Setter Property="TextBlock.TextAlignment" Value="Right"></Setter>
+		<Setter Property="TextBlock.TextWrapping" Value="NoWrap"></Setter>
+		<Setter Property="DataGrid.MaxColumnWidth" Value="300"></Setter>
+	</Style>
+</Styles>

@@ -8,7 +8,7 @@
 		SystemDecorations="None" TransparencyLevelHint="Transparent" 
 		Background="Transparent" WindowStartupLocation="CenterScreen">
 	
-		<Border CornerRadius="15" Background="{StaticResource BodyBackgroundColor}">
+		<Border CornerRadius="15" Background="{StaticResource BodyAuthorizeBackgroundColor}">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
@@ -22,9 +22,11 @@
 					<TextBlock Text="PharmacyAIS" FontSize="25" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 				</StackPanel>
 			<StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="35">
-			<TextBox Width="250" Height="35" Text="{Binding Login}" Watermark="Имя пользователя"></TextBox>
-			<TextBox Height="35" Text="{Binding Password}" Watermark="Пароль" PasswordChar="*" VerticalContentAlignment="Center"></TextBox>
-			<Button Width="250"  CornerRadius="5" HorizontalAlignment="Center"
+			<TextBox Classes="clearButton" Width="250" Height="35" Text="{Binding Login}"
+					 Watermark="Имя пользователя"></TextBox>
+			<TextBox Classes="revealPasswordButton" Height="35" Text="{Binding Password}" Watermark="Пароль"
+					 PasswordChar="*" VerticalContentAlignment="Center" ></TextBox>
+				<Button Name="LoginButton" Width="250"  CornerRadius="5" HorizontalAlignment="Center"
 					Content="Войти" HorizontalContentAlignment="Center" FontSize="15"
 					Height="45" Classes="Login" VerticalContentAlignment="Center"
 					Command="{Binding AuthorizeCommand}" Margin="0,30,0,0" Cursor="Hand"

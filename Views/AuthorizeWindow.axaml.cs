@@ -14,5 +14,10 @@ namespace PharmacyAIS.Views
         {
             this.Close();
         }
+        private void Input_Text(object sender, TextInputEventArgs e)
+        {
+            if (e.Text == "") LoginButton.IsEnabled = false;
+            else LoginButton.IsEnabled = true;
+        }
     }
 }

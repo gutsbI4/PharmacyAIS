@@ -15,22 +15,22 @@
         <TextBox Grid.Row="0" Classes="Search" VerticalAlignment="Top" Margin="180,20,40,20"
                  Watermark="Поиск по имени покупателя или номеру заказа" Height="30" ZIndex="1"
                  Text="{Binding SearchString}"></TextBox>
-        <DataGrid Grid.Row="1" Background="White" Items="{Binding Orders}" Margin="10,0" CanUserSortColumns="False" IsReadOnly="True">
+        <DataGrid Grid.Row="1" Items="{Binding Orders}" Margin="10,0" CanUserSortColumns="False" IsReadOnly="True">
 					<DataGrid.Columns>
-						<DataGridTextColumn Foreground="Black" Binding="{Binding OrderNumber}" Header="Номер заказа"></DataGridTextColumn>
-                        <DataGridTextColumn Foreground="Black" Binding="{Binding OrderDate}" Header="Дата заказа"></DataGridTextColumn>
-						<DataGridTemplateColumn Header="Список лекарств" Width="150">
+						<DataGridTextColumn CellStyleClasses="ColumnOfNumbers" Binding="{Binding OrderNumber}" Header="Номер заказа"></DataGridTextColumn>
+                        <DataGridTextColumn CellStyleClasses="ColumnOfNumbers" Binding="{Binding OrderDate}" Header="Дата заказа"></DataGridTextColumn>
+						<DataGridTemplateColumn Header="Список лекарств">
                                 <DataTemplate>
-                                    <TextBlock Foreground="Black" TextWrapping="Wrap"
+                                    <TextBlock TextWrapping="Wrap"
                                                Text="{Binding ProductOrder,Mode=OneWay,Converter={StaticResource ListProductsToStringConverter}}"></TextBlock>
                                 </DataTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Foreground="Black" Binding="{Binding TotalCost, StringFormat={}{0} руб.}" Header="Стоимость"></DataGridTextColumn>
-                        <DataGridTextColumn Foreground="Black" Binding="{Binding Status.Name}" Header="Статус"></DataGridTextColumn>
-                        <DataGridTextColumn Foreground="Black" Binding="{Binding SaleDate}" Header="Дата продажи"></DataGridTextColumn>
+                        <DataGridTextColumn CellStyleClasses="ColumnOfNumbers" Binding="{Binding TotalCost, StringFormat={}{0} руб.}" Header="Стоимость"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Status.Name}" Header="Статус"></DataGridTextColumn>
+                        <DataGridTextColumn CellStyleClasses="ColumnOfNumbers" Binding="{Binding SaleDate}" Header="Дата продажи"></DataGridTextColumn>
                         <DataGridTemplateColumn Header="Покупатель">
 							<DataTemplate>
-								<TextBlock TextWrapping="Wrap" Width="130">
+								<TextBlock TextWrapping="Wrap">
 									<TextBlock.Text>
 										<MultiBinding StringFormat="{}{1} {0}., {2}">
 											<Binding Path="Customer.FirstName[0]"></Binding>
@@ -44,6 +44,5 @@
 						
 					</DataGrid.Columns>
 				</DataGrid>
-		
 	</Grid>
 </UserControl>

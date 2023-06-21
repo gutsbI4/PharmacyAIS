@@ -39,7 +39,7 @@
 							   IsVisible="{Binding RelativeSource={RelativeSource AncestorType=TabItem},Path=IsSelected}"></Image>
 					</Panel>
 				</TabItem.Header>
-				<DataGrid Background="White" Items="{Binding Products}" Margin="0,10,10,10"
+				<DataGrid Items="{Binding Products}" Margin="0,10,10,10"
                           CanUserSortColumns="False" IsReadOnly="True">
 					<DataGrid.Columns>
                         <DataGridTemplateColumn Header="">
@@ -48,13 +48,13 @@
                                        Width="100" Height="100"></Image>
                             </DataTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Foreground="Black" Binding="{Binding Name}" Header="Название лекарства"></DataGridTextColumn>
-						<DataGridTemplateColumn Header="Производитель" Width="200">
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Название лекарства"></DataGridTextColumn>
+						<DataGridTemplateColumn Header="Производитель">
 							<DataTemplate>
 								<TextBlock Text="{Binding Manufacturer.Name}" TextWrapping="Wrap"></TextBlock>
 							</DataTemplate>
 						</DataGridTemplateColumn>
-						<DataGridTemplateColumn Header="Доза/кол-во">
+						<DataGridTemplateColumn CellStyleClasses="ColumnOfNumbers" Header="Доза/кол-во">
 							<DataTemplate>
 								<TextBlock>
 									<TextBlock.Text>
@@ -66,8 +66,8 @@
 								</TextBlock>
 							</DataTemplate>
 						</DataGridTemplateColumn>
-						<DataGridTextColumn Foreground="Black" Binding="{Binding QuantityInStock}" Header="Количество на складе"></DataGridTextColumn>
-						<DataGridTextColumn Foreground="Black" Binding="{Binding Price, StringFormat={}{0} руб.}" Header="Цена"></DataGridTextColumn>
+						<DataGridTextColumn CellStyleClasses="ColumnOfNumbers" Binding="{Binding QuantityInStock}" Header="Количество на складе"></DataGridTextColumn>
+						<DataGridTextColumn CellStyleClasses="ColumnOfNumbers" Binding="{Binding Price, StringFormat={}{0} руб.}" Header="Цена"></DataGridTextColumn>
 					</DataGrid.Columns>
 				</DataGrid>
 			</TabItem>

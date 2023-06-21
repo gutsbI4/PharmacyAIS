@@ -15,15 +15,15 @@
 		<TextBox Grid.Row="0" Classes="Search" VerticalAlignment="Top" Margin="180,20,40,20"
                  Watermark="Поиск по имени, должности, id или отделу" Height="30" ZIndex="1"
                  Text="{Binding SearchString}"></TextBox>
-		<DataGrid Grid.Row="1" Background="White" Items="{Binding Users}" Margin="10,0" CanUserSortColumns="False"
+		<DataGrid Grid.Row="1" Items="{Binding Users}" Margin="10,0" CanUserSortColumns="False"
                   IsReadOnly="True">
 			<DataGrid.Columns>
-				<DataGridTextColumn Width="Auto" FontSize="10" Foreground="Black" Binding="{Binding UserId}" Header="ID"></DataGridTextColumn>
-				<DataGridTextColumn Width="Auto" FontSize="10" Foreground="Black" Binding="{Binding Username}" Header="Логин"></DataGridTextColumn>
-                <DataGridTextColumn Width="Auto" FontSize="10" Foreground="Black" Binding="{Binding Role.Name}" Header="Роль"></DataGridTextColumn>
-                <DataGridTemplateColumn Width="Auto"  Header="Имя">
+				<DataGridTextColumn CellStyleClasses="ColumnOfNumbers" Binding="{Binding UserId}" Header="ID"></DataGridTextColumn>
+				<DataGridTextColumn Binding="{Binding Username}" Header="Логин"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Role.Name}" Header="Роль"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Имя">
                     <DataTemplate>
-                        <TextBlock TextWrapping="Wrap" FontSize="10" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{1} {0}">
                                     <Binding Path="Employee.FirstName"></Binding>
@@ -33,9 +33,9 @@
                         </TextBlock>
                     </DataTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="Auto" Header="Позиция и зп">
+                <DataGridTemplateColumn Header="Позиция и зп">
                     <DataTemplate>
-                        <TextBlock TextWrapping="Wrap" FontSize="10" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1} руб.">
                                     <Binding Path="Employee.Position"></Binding>
@@ -45,9 +45,9 @@
                         </TextBlock>
                     </DataTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="Auto"  Header="Отдел">
+                <DataGridTemplateColumn Header="Отдел">
                     <DataTemplate>
-                        <TextBlock TextWrapping="Wrap" Width="130" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"> 
+                        <TextBlock TextWrapping="Wrap"> 
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0}, {1}">
                                     <Binding Path="Employee.Department.Name"></Binding>
@@ -57,8 +57,8 @@
                         </TextBlock>
                     </DataTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Width="Auto" FontSize="10" Foreground="Black" Binding="{Binding Employee.ContactInfo}" Header="Контактная информация"></DataGridTextColumn>
-                <DataGridTemplateColumn Width="Auto" Header="Фото">
+                <DataGridTextColumn Binding="{Binding Employee.ContactInfo}" Header="Контактная информация"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Фото">
                     <DataTemplate>
                         <Image Height="120" Width="120"
                                Source="{Binding Image, Converter={StaticResource BitmapValueConverter}}"></Image>
