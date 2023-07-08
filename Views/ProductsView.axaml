@@ -39,9 +39,20 @@
 							   IsVisible="{Binding RelativeSource={RelativeSource AncestorType=TabItem},Path=IsSelected}"></Image>
 					</Panel>
 				</TabItem.Header>
-				<DataGrid Items="{Binding Products}" Margin="0,10,10,10"
-                          CanUserSortColumns="False" IsReadOnly="True">
+				<DataGrid x:Name="dataGrid" Items="{Binding Products}" Margin="0,10,10,10"
+                          CanUserSortColumns="False" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged" CellPointerPressed="DataGridRow_CellPointerPressed">
 					<DataGrid.Columns>
+						<DataGridTemplateColumn>
+							<DataTemplate>
+								<CheckBox Checked="OnCheckBoxChecked" Unchecked="OnCheckBoxUnchecked"></CheckBox>
+							</DataTemplate>
+							<DataGridTemplateColumn.HeaderTemplate>
+								<DataTemplate>
+									<CheckBox Checked="HeaderCheckBox_Checked" Unchecked="HeaderCheckBox_Unchecked"></CheckBox>
+								</DataTemplate>
+							</DataGridTemplateColumn.HeaderTemplate>
+						</DataGridTemplateColumn>
+							
                         <DataGridTemplateColumn Header="">
                             <DataTemplate>
 								<Image Source="{Binding Image, Converter={StaticResource BitmapValueConverter}}"

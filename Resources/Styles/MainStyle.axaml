@@ -47,11 +47,6 @@
 		<Setter Property="Background" Value="{StaticResource ActiveButtonBackgroundColor}"></Setter>
 		<Setter Property="BorderThickness" Value="2"></Setter>
 	</Style>
-	<Style Selector="Window">
-		<Setter Property="WindowState" Value="FullScreen"></Setter>
-		<Setter Property="Height" Value="720"></Setter>
-		<Setter Property="Width" Value="1280"></Setter>
-	</Style>
 	<Style Selector="TabControl.Products > TabItem">
         <Setter Property="CornerRadius" Value="10"></Setter>
 		<Setter Property="BorderBrush" Value="Black"></Setter>

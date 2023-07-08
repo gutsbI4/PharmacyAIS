@@ -11,5 +11,6 @@ namespace PharmacyAIS.ViewModels
             get => _title;
             set => this.RaiseAndSetIfChanged(ref _title, value);
         }
+        
     }
 }

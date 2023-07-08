@@ -13,13 +13,11 @@ namespace PharmacyAIS.ViewModels
         public User User { get; set; }
         public List<ViewModelBase> MainMenuViewModels { get; set; }
         private ViewModelBase _selectedViewModel;
-
-        public ViewModelBase SelectedViewModel
+        public virtual ViewModelBase SelectedViewModel
         {
-            get=> _selectedViewModel;
+            get => _selectedViewModel;
             set => this.RaiseAndSetIfChanged(ref _selectedViewModel, value);
         }
-
         public MainWindowViewModel(User user)
         {
             Title = "Главная";

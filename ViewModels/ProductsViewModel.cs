@@ -2,13 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Reactive.Linq;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using DynamicData;
 using DynamicData.Binding;
 using Microsoft.EntityFrameworkCore;
 using PharmacyAIS.Models;
 using PharmacyAIS.Services;
+using PharmacyAIS.Views;
 using ReactiveUI;
 using Splat;
 
@@ -54,6 +58,7 @@ public class ProductsViewModel:ViewModelBase
 
     private SourceList<Product> _productsSource;
     private ReadOnlyObservableCollection<Product> _products;
+    
     public ReadOnlyObservableCollection<Product> Products => _products;
 
     private ObservableCollection<FilterModel<Manufacturer>> _manufacturers;
@@ -86,4 +91,5 @@ public class ProductsViewModel:ViewModelBase
                            filterModels.Select(p => p.Value.Name)
             .Contains(products.Manufacturer.Name);
     }
+    
 }

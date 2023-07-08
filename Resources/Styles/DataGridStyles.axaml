@@ -13,11 +13,12 @@
 	</Style>
 	<Style Selector="DataGridColumnHeader /template/ ContentPresenter > TextBlock">
 		<Setter Property="TextBlock.Foreground" Value="Black"></Setter>
+		<Setter Property="TextWrapping" Value="Wrap"></Setter>
 	</Style>
 	<Style Selector="DataGridCell > TextBlock#CellTextBlock">
 		<Setter Property="Foreground" Value="Black"></Setter>
 		<Setter Property="TextAlignment" Value="Left"></Setter>
-		<Setter Property="VerticalAlignment" Value="Top"></Setter>
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
 		<Setter Property="HorizontalAlignment" Value="Left"></Setter>
 		<Setter Property="TextWrapping" Value="Wrap"></Setter>
 		<Setter Property="FontSize" Value="14"></Setter>
@@ -25,6 +26,7 @@
 	<Style Selector="DataGridCell > TextBlock">
 		<Setter Property="Foreground" Value="Black"></Setter>
 		<Setter Property="TextAlignment" Value="Left"></Setter>
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
 		<Setter Property="TextWrapping" Value="Wrap"></Setter>
 		<Setter Property="FontSize" Value="14"></Setter>
 	</Style>
@@ -40,6 +42,7 @@
 		<Setter Property="TextBlock.TextAlignment" Value="Left"></Setter>
 		<Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
 		<Setter Property="TextBlock.FontSize" Value="14"></Setter>
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
 	</Style>
 	<Style Selector="DataGridDetailsPresenter#PART_DetailsPresenter">
 		
@@ -76,5 +79,12 @@
 		<Setter Property="TextBlock.TextAlignment" Value="Right"></Setter>
 		<Setter Property="TextBlock.TextWrapping" Value="NoWrap"></Setter>
 		<Setter Property="DataGrid.MaxColumnWidth" Value="300"></Setter>
+	</Style>
+	<!--Дальше стили с псевдо-классами-->
+	<Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+		
+	</Style>
+	<Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+		
 	</Style>
 </Styles>
