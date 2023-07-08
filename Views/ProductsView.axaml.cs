@@ -20,14 +20,7 @@ namespace PharmacyAIS.Views
             InitializeComponent();
             _selectedRows = new List<object>();
         }
-        private void DataGridRow_CellPointerPressed(object sender, DataGridCellPointerPressedEventArgs e)
-        {
-            if (DataContext is ProductsViewModel viewModel)
-            {
-                var product = dataGrid.SelectedItem as Product;
-                if(product != null ) viewModel.SelectRowForEditAsync(product);
-            }
-        }
+        
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var checkBoxes = dataGrid.GetVisualDescendants().OfType<CheckBox>().ToList();
