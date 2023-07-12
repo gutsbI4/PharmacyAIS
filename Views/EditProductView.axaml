@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:PharmacyAIS.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="PharmacyAIS.Views.EditProductView"
+			 x:DataType="vm:EditProductViewModel">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="10*" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<TextBlock Grid.Row="0"
+                   Text="Редактирование объекта"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="18"
+                   Margin="0,10" />
+		<ScrollViewer Grid.Row="1">
+			<StackPanel	Margin="20,10"
+						VerticalAlignment="Top" Spacing="5">
+				<Label>Название продутка</Label>
+				<AutoCompleteBox
+						 HorizontalAlignment="Stretch" Items="{Binding ProductsNames}"
+						 Text="{Binding EditingProduct.Name}"/>
+				<Label>Название производителя</Label>
+				<AutoCompleteBox
+						 HorizontalAlignment="Stretch"
+						 Text="{Binding EditingProduct.Manufacturer.Name}" Items="{Binding ProductsManufacturers}"/>
+				<Label>Количество на складе</Label>
+				<NumericUpDown Value="{Binding EditingProduct.QuantityInStock}"
+						 HorizontalAlignment="Stretch" 
+						Minimum="0" />
+				<Label>Доза</Label>
+				<DockPanel HorizontalAlignment="Stretch">
+					<TextBox Watermark="Доза"
+						 HorizontalAlignment="Stretch"
+						 Text="{Binding EditingProduct.Dosage}"/>
+					<ComboBox Items="{Binding Units}" HorizontalAlignment="Left" SelectedItem="{Binding EditingProduct.Unit}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Name}"></TextBlock>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</DockPanel>
+				<Label>Цена за шт.</Label>
+				<TextBox
+						 HorizontalAlignment="Stretch"
+						 Text="{Binding EditingProduct.Price}"/>
+				<Label>Фото продукта</Label>
+				<Viewbox MaxHeight="800" MaxWidth="800">
+				<DockPanel>
+					<Image Source="{Binding ImageProductPath, Converter={StaticResource BitmapValueConverter}}"
+					   HorizontalAlignment="Left" DockPanel.Dock="Left"
+						   Margin="10"></Image>
+					<Border x:Name="borderDragInDrop" DockPanel.Dock="Left"
+					Cursor="Hand" Background="Transparent"
+					BorderBrush="Black" PointerPressed="Border_PointerPressed"
+					BorderThickness="2" DragDrop.AllowDrop="True"
+					CornerRadius="4">
+						<TextBlock Text="Перетащите изображение или нажмите сюда, чтобы выбрать"
+								   HorizontalAlignment="Center" Margin="10"
+								   VerticalAlignment="Center">
+						</TextBlock>
+					</Border>
+				</DockPanel>
+				</Viewbox>
+			</StackPanel>
+		</ScrollViewer>
+		<DockPanel Grid.Row="2" HorizontalAlignment="Center">
+			<Button Margin="10" Command="{Binding ConfirmEdit}">Подтвердить</Button>
+			<Button Command="{Binding CancelEdit}">Отменить</Button>
+		</DockPanel>
+	</Grid>
+</UserControl>

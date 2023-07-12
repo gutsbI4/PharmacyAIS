@@ -5,11 +5,14 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Reactive.Linq;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using DynamicData;
 using DynamicData.Binding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using PharmacyAIS.Models;
 using PharmacyAIS.Services;
 using PharmacyAIS.Views;
@@ -18,10 +21,13 @@ using Splat;
 
 namespace PharmacyAIS.ViewModels;
 
+// TODO: Исправить проблему с сортировкой для DataGrid, путем добавления нового листа
 public class ProductsViewModel:ViewModelBase
 {
+    private readonly IViewModelService _viewModelService;
     public ProductsViewModel()
     {
+        _viewModelService = Locator.Current.GetService<IViewModelService>();
         Title = "Лекарства";
         _manufacturers = new ObservableCollection<FilterModel<Manufacturer>>(Locator.Current.GetService<DataBaseContext>()
             .Manufacturer
@@ -79,10 +85,15 @@ public class ProductsViewModel:ViewModelBase
         get => _searchString;
         set => this.RaiseAndSetIfChanged(ref _searchString, value);
     }
-
+    private Product _selectedProduct;
+    public Product SelectedProduct
+    {
+        get => _selectedProduct;
+        set => this.RaiseAndSetIfChanged(ref _selectedProduct, value);
+    }
     private Func<Product, bool> SearchFunc(string searchString)
     {
-        return product => product.Name.ToLower().Contains(searchString.ToLower()) || product.Manufacturer.Name.ToLower().Contains(searchString.ToLower());
+        return product => searchString == "" || product.Name.ToLower().Contains(searchString.ToLower()) || product.Manufacturer.Name.ToLower().Contains(searchString.ToLower());
     }
 
     private Func<Product, bool> ManufacturerFilterFunc(IReadOnlyCollection<FilterModel<Manufacturer>> filterModels)
@@ -91,5 +102,8 @@ public class ProductsViewModel:ViewModelBase
                            filterModels.Select(p => p.Value.Name)
             .Contains(products.Manufacturer.Name);
     }
-    
+    public void EditRowCommand()
+    {
+        _viewModelService.ChangeContentViewModel(new EditProductViewModel(SelectedProduct));
+    }
 }

@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using PharmacyAIS.Repositories.Implementations;
+using PharmacyAIS.Repositories.Interfaces;
 using PharmacyAIS.Services;
 using PharmacyAIS.ViewModels;
 using PharmacyAIS.Views;
@@ -18,12 +20,14 @@ namespace PharmacyAIS
         public override void OnFrameworkInitializationCompleted()
         {
             Locator.CurrentMutable.RegisterLazySingleton(() => new DataBaseContext(), typeof(DataBaseContext));
+            Locator.CurrentMutable.RegisterLazySingleton(() => new ProductRepository(Locator.Current.GetService<DataBaseContext>()), typeof(IProductRepository));
+            Locator.CurrentMutable.RegisterLazySingleton(()=> new AvaloniaWindowService(),typeof(IWindowService));
+            Locator.CurrentMutable.RegisterLazySingleton(()=>new ViewModelService(),typeof(IViewModelService));
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new AuthorizeWindow
                 {
                     DataContext = new AuthorizeViewModel(),
-                    
                 };
             }
 

@@ -9,7 +9,7 @@
         Icon="avares://PharmacyAIS/Assets/icon.png"
         Title="Информационная система Аптека"
         Height="720" Width="1280"
-        MinWidth="950" MinHeight="580" WindowStartupLocation="CenterScreen">
+        MinHeight="580" WindowStartupLocation="CenterScreen">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -54,7 +54,7 @@
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
-					<Line Stroke="White" StartPoint="0,0" EndPoint="135,0"></Line>
+					<Separator Background="White" BorderThickness="1.1"></Separator>
 					<TextBlock Foreground="White" Margin="0,5" Text="{Binding User.Role.Name}" HorizontalAlignment="Center"></TextBlock>
 				</StackPanel>
 				
@@ -66,9 +66,9 @@
                     Click="Button_OnClick"/>
 		</StackPanel>
 		<StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Background="{StaticResource MenuBackgroundColor}">
-			<ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedViewModel}" Classes="MenuListBox"
+			<ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedMenuViewModel}" Classes="MenuListBox"
                      Items="{Binding MainMenuViewModels}"
-                     AutoScrollToSelectedItem="False" VirtualizationMode="None">
+                     AutoScrollToSelectedItem="False">
                 <ListBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="Black"></TextBlock>
@@ -76,8 +76,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 		</StackPanel>
-		<DockPanel Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" >
-            <ContentControl DockPanel.Dock="Bottom" Margin="20" Content="{Binding SelectedViewModel}"></ContentControl>
+		<DockPanel Grid.RowSpan="2" Grid.Row="0" Grid.Column="1">
+            <ContentControl DockPanel.Dock="Bottom" Margin="20" Content="{Binding SelectedContentViewModel}"></ContentControl>
         </DockPanel>
 	</Grid>
 

@@ -40,7 +40,8 @@
 					</Panel>
 				</TabItem.Header>
 				<DataGrid x:Name="dataGrid" Items="{Binding Products}" Margin="0,10,10,10"
-                          CanUserSortColumns="False" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged">
+                          CanUserSortColumns="False" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged"
+						  CellPointerPressed="DataGrid_CellPointerPressed" SelectedItem="{Binding SelectedProduct}">
 					<DataGrid.Columns>
 						<DataGridTemplateColumn>
 							<DataTemplate>

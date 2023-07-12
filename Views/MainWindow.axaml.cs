@@ -13,11 +13,6 @@ namespace PharmacyAIS.Views
         {
            InitializeComponent();
         }
-        public MainWindow(User user)
-        {
-            InitializeComponent();
-            DataContext = new MainWindowViewModel(user);
-        }
 
         private void Button_OnClick(object? sender, RoutedEventArgs e)
         {

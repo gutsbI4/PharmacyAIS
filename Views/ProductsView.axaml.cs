@@ -5,6 +5,8 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using PharmacyAIS.Models;
 using PharmacyAIS.ViewModels;
+using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,13 +16,30 @@ namespace PharmacyAIS.Views
     public partial class ProductsView : UserControl
     {
         private bool isUpdatingHeaderCheckBox;
-        private List<object> _selectedRows;
         public ProductsView()
         {
             InitializeComponent();
-            _selectedRows = new List<object>();
+            
         }
-        
+        protected override void OnDataContextChanged(EventArgs e)
+        {
+            base.OnDataContextChanged(e);
+
+            if (DataContext is ProductsViewModel viewModel)
+            {
+                viewModel.WhenAnyValue(x => x.Products).Subscribe(_ =>
+                {
+                    dataGrid.InvalidateVisual();
+                });
+            }
+        }
+        private void DataGrid_CellPointerPressed(object sender, DataGridCellPointerPressedEventArgs e)
+        {
+            var datagridrow = e.Row.DataContext;
+            dataGrid.SelectedItems.Add(datagridrow);
+            var viewmodel = DataContext as ProductsViewModel;
+            if (viewmodel != null) viewmodel.EditRowCommand();
+        }
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var checkBoxes = dataGrid.GetVisualDescendants().OfType<CheckBox>().ToList();

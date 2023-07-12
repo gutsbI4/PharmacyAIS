@@ -1,24 +1,19 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Platform;
-using Avalonia.Threading;
 using PharmacyAIS.Services;
-using PharmacyAIS.Views;
 using ReactiveUI;
 using Splat;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PharmacyAIS.ViewModels
 {
-    internal class AuthorizeViewModel:ViewModelBase
+    internal class AuthorizeViewModel : ViewModelBase
     {
+        private readonly IWindowService _windowService;
         private string _login;
         public string Login
         {
@@ -33,40 +28,36 @@ namespace PharmacyAIS.ViewModels
         }
         private string _result;
         public string Result
-        { 
+        {
             get => _result;
-            set=>this.RaiseAndSetIfChanged(ref _result, value);
+            set => this.RaiseAndSetIfChanged(ref _result, value);
         }
-        public bool IsExecuting => _isExecuting.Value;
-        private ObservableAsPropertyHelper<bool> _isExecuting;
 
         public ReactiveCommand<Unit, Unit> AuthorizeCommand { get; }
         public AuthorizeViewModel()
         {
             AuthorizeCommand = ReactiveCommand.CreateFromObservable<Unit>(AuthorizeUser);
-            AuthorizeCommand.IsExecuting.ToProperty(this, x => x.IsExecuting, out _isExecuting);
+            _windowService = Locator.Current.GetService<IWindowService>();
         }
         private IObservable<Unit> AuthorizeUser()
         {
             return Observable.Start(() =>
             {
+                Result = String.Empty;
+                Thread.Sleep(1000);
                 var db = Locator.Current.GetService<DataBaseContext>();
                 var user = db.User.FirstOrDefault(x => x.Username == Login && x.Password == Password);
                 if (user != null)
                 {
-                    Dispatcher.UIThread.InvokeAsync(() =>
-                    {   
-                        var window = new MainWindow(user);
-                        window.Show();
-                        ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.Close();
-                    });
+                    var windowViewModel = new MainWindowViewModel(user);
+                    _windowService.OpenWindow(windowViewModel);
                 }
                 else
                 {
                     Result = "Такого пользователя не существует";
                 }
+                
             });
-            
         }
     }
 }
