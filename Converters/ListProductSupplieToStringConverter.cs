@@ -5,7 +5,7 @@ using System.Linq;
 using Avalonia.Data.Converters;
 using PharmacyAIS.Models;
 
-namespace UP02.Converters;
+namespace PharmacyAIS.Converters;
 
 public class ListProductSupplieToStringConverter:IValueConverter
 {

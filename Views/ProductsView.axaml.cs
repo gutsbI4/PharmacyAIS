@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using System.ComponentModel;
 using Avalonia.VisualTree;
 using PharmacyAIS.Models;
 using PharmacyAIS.ViewModels;
@@ -21,17 +22,26 @@ namespace PharmacyAIS.Views
             InitializeComponent();
             
         }
-        protected override void OnDataContextChanged(EventArgs e)
+        private void Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            base.OnDataContextChanged(e);
-
-            if (DataContext is ProductsViewModel viewModel)
+            var comboBox = sender as ComboBox;
+            int selectedIndex = comboBox.SelectedIndex;
+            switch (selectedIndex)
             {
-                viewModel.WhenAnyValue(x => x.Products).Subscribe(_ =>
-                {
-                    dataGrid.InvalidateVisual();
-                });
+                case 0:
+                    dataGrid.Columns[2].Sort(ListSortDirection.Ascending);
+                    break;
+                case 1:
+                    dataGrid.Columns[2].Sort(ListSortDirection.Descending);
+                    break;
+                case 2:
+                    dataGrid.Columns[6].Sort(ListSortDirection.Ascending);
+                    break;
+                case 3:
+                    dataGrid.Columns[6].Sort(ListSortDirection.Descending);
+                    break;
             }
+
         }
         private void DataGrid_CellPointerPressed(object sender, DataGridCellPointerPressedEventArgs e)
         {

@@ -18,13 +18,19 @@ namespace PharmacyAIS.Repositories.Implementations
         {
             _db = dataBase;
         }
-        public async Task EditProduct(int productId,Product editingProduct)
+        public async Task EditProduct(int productId, Product editingProduct)
         {
-            var product = await _db.Product.FirstOrDefaultAsync(x=>x.ProductId == productId);
-            if(product != null)
+            var product = await _db.Product.FirstOrDefaultAsync(x => x.ProductId == productId);
+            if (product != null)
             {
                 product.Name = editingProduct.Name;
-                product.Manufacturer = editingProduct.Manufacturer;
+                var manufacturer = await _db.Manufacturer.FirstOrDefaultAsync(m => m.Name.ToLower() == editingProduct.Manufacturer.Name.ToLower());
+                if (manufacturer == null)
+                {
+                    manufacturer = editingProduct.Manufacturer;
+                    await _db.Manufacturer.AddAsync(manufacturer);
+                }
+                product.Manufacturer = manufacturer;
                 product.Unit = editingProduct.Unit;
                 product.Dosage = editingProduct.Dosage;
                 product.Image = editingProduct.Image;

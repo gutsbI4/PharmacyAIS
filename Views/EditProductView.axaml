@@ -24,20 +24,20 @@
 				<Label>Название продутка</Label>
 				<AutoCompleteBox
 						 HorizontalAlignment="Stretch" Items="{Binding ProductsNames}"
-						 Text="{Binding EditingProduct.Name}"/>
+						 Text="{Binding Name}"/>
 				<Label>Название производителя</Label>
 				<AutoCompleteBox
 						 HorizontalAlignment="Stretch"
-						 Text="{Binding EditingProduct.Manufacturer.Name}" Items="{Binding ProductsManufacturers}"/>
+						 Text="{Binding Manufacturer}" Items="{Binding ProductsManufacturers}"/>
 				<Label>Количество на складе</Label>
-				<NumericUpDown Value="{Binding EditingProduct.QuantityInStock}"
-						 HorizontalAlignment="Stretch" 
+				<NumericUpDown Value="{Binding QuantityInStock}"
+						 HorizontalAlignment="Stretch" x:Name="textbox_Quantity" 
 						Minimum="0" />
 				<Label>Доза</Label>
 				<DockPanel HorizontalAlignment="Stretch">
-					<TextBox Watermark="Доза"
+					<TextBox Watermark="Доза" x:Name="textbox_Dosage"
 						 HorizontalAlignment="Stretch"
-						 Text="{Binding EditingProduct.Dosage}"/>
+						 Text="{Binding Dosage, Converter={StaticResource StringToDecimalConverter}}"/>
 					<ComboBox Items="{Binding Units}" HorizontalAlignment="Left" SelectedItem="{Binding EditingProduct.Unit}">
 						<ComboBox.ItemTemplate>
 							<DataTemplate>
@@ -47,9 +47,9 @@
 					</ComboBox>
 				</DockPanel>
 				<Label>Цена за шт.</Label>
-				<TextBox
+				<TextBox x:Name="textbox_Price" 
 						 HorizontalAlignment="Stretch"
-						 Text="{Binding EditingProduct.Price}"/>
+						 Text="{Binding Price, Converter={StaticResource StringToDecimalConverter}}"/>
 				<Label>Фото продукта</Label>
 				<Viewbox MaxHeight="800" MaxWidth="800">
 				<DockPanel>
@@ -71,7 +71,7 @@
 			</StackPanel>
 		</ScrollViewer>
 		<DockPanel Grid.Row="2" HorizontalAlignment="Center">
-			<Button Margin="10" Command="{Binding ConfirmEdit}">Подтвердить</Button>
+			<Button Margin="10" Command="{Binding ConfirmCommand}">Подтвердить</Button>
 			<Button Command="{Binding CancelEdit}">Отменить</Button>
 		</DockPanel>
 	</Grid>

@@ -56,6 +56,7 @@ public class ProductsViewModel:ViewModelBase
         _productsSource.Connect().Filter(manufacturersRename).Filter(searchFilter).Sort(sort).Bind(out _products).Subscribe();
         IList<Product> products = Locator.Current.GetService<DataBaseContext>().Product
             .Include(p => p.Unit)
+            .Include(p => p.Manufacturer)
             .ToList();
         _productsSource.AddRange(products);
         
@@ -100,7 +101,7 @@ public class ProductsViewModel:ViewModelBase
     {
         return products => filterModels.Count == 0 ||
                            filterModels.Select(p => p.Value.Name)
-            .Contains(products.Manufacturer.Name);
+                                        .Contains(products.Manufacturer.Name);
     }
     public void EditRowCommand()
     {

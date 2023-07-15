@@ -1,5 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data.Core;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using PharmacyAIS.Repositories.Implementations;
 using PharmacyAIS.Repositories.Interfaces;
@@ -23,6 +25,7 @@ namespace PharmacyAIS
             Locator.CurrentMutable.RegisterLazySingleton(() => new ProductRepository(Locator.Current.GetService<DataBaseContext>()), typeof(IProductRepository));
             Locator.CurrentMutable.RegisterLazySingleton(()=> new AvaloniaWindowService(),typeof(IWindowService));
             Locator.CurrentMutable.RegisterLazySingleton(()=>new ViewModelService(),typeof(IViewModelService));
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new AuthorizeWindow

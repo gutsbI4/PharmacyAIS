@@ -22,7 +22,7 @@
                 </ItemsControl>
             </Expander>
 			<ComboBox PlaceholderText="Сортировать по" SelectedIndex="{Binding SortSelectedIndex}"
-                      Margin="0,10"> 
+                      Margin="0,10" SelectionChanged="Sort_SelectionChanged"> 
                 <ComboBoxItem>По названию (по возрастанию)</ComboBoxItem>
 				<ComboBoxItem>По названию (по убыванию)</ComboBoxItem>
 				<ComboBoxItem>По цене (по возрастанию)</ComboBoxItem>
@@ -40,7 +40,7 @@
 					</Panel>
 				</TabItem.Header>
 				<DataGrid x:Name="dataGrid" Items="{Binding Products}" Margin="0,10,10,10"
-                          CanUserSortColumns="False" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged"
+                          CanUserSortColumns="True" SelectionMode="Extended" SelectionChanged="DataGrid_SelectionChanged"
 						  CellPointerPressed="DataGrid_CellPointerPressed" SelectedItem="{Binding SelectedProduct}">
 					<DataGrid.Columns>
 						<DataGridTemplateColumn>

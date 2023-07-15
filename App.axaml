@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:PharmacyAIS"
              x:Class="PharmacyAIS.App"
-             xmlns:cnv="clr-namespace:UP02.Converters">
+             xmlns:cnv="using:PharmacyAIS.Converters">
 	<Application.DataTemplates>
 		<local:ViewLocator/>
 	</Application.DataTemplates>
@@ -17,6 +17,7 @@
 		<cnv:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter"></cnv:BitmapAssetValueConverter>
 		<cnv:ListProductsToStringConverter x:Key="ListProductsToStringConverter"></cnv:ListProductsToStringConverter>
 		<cnv:ListProductSupplieToStringConverter x:Key="ListProductSupplieToStringConverter"></cnv:ListProductSupplieToStringConverter>
+		<cnv:StringToDecimalConverter x:Key="StringToDecimalConverter"></cnv:StringToDecimalConverter>
 	</Application.Resources>
 
 	<Application.Styles>

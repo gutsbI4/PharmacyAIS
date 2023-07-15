@@ -6,7 +6,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using PharmacyAIS.Services;
 
-namespace UP02.Converters;
+namespace PharmacyAIS.Converters;
 
 public class BitmapValueConverter : IValueConverter
 {
