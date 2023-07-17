@@ -9,22 +9,22 @@ using System;
 using System.Linq;
 using System.Reactive.Linq;
 using Microsoft.EntityFrameworkCore;
+using PharmacyAIS.Repositories.Interfaces;
 
 namespace PharmacyAIS.ViewModels;
 
 public class UsersViewModel:ViewModelBase
 {
+    private readonly IUserRepository _userRepository;
     public UsersViewModel()
     {
+        _userRepository = Locator.Current.GetService<IUserRepository>();
         Title = "Пользователи";
         var searchFilter = this.WhenAnyValue(x => x.SearchString).Select(SearchFunc);
         _usersSource = new SourceList<User>();
         _usersSource.Connect().Filter(searchFilter).Bind(out _users).Subscribe();
-        IList<User> orders = Locator.Current.GetService<DataBaseContext>().User
-            .Include(p => p.Employee).ThenInclude(x=>x.Department)
-            .Include(p => p.Role)
-            .ToList();
-        _usersSource.AddRange(orders);
+        IList<User> users = _userRepository.GetUsers().GetAwaiter().GetResult();
+        _usersSource.AddRange(users);
 
 
     }

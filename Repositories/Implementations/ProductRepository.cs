@@ -39,5 +39,14 @@ namespace PharmacyAIS.Repositories.Implementations
                 await _db.SaveChangesAsync();
             }
         }
+        public async Task<List<Product>> GetProducts()
+        {
+            return await _db.Product.Include(p=>p.Manufacturer)
+                                    .Include(p=>p.Unit).ToListAsync();
+        }
+        public Task<List<Unit>> GetDosageUnits()
+        {
+            return  _db.Unit.ToListAsync();
+        }
     }
 }

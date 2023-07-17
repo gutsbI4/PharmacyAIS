@@ -9,21 +9,21 @@ using System;
 using System.Linq;
 using System.Reactive.Linq;
 using Microsoft.EntityFrameworkCore;
+using PharmacyAIS.Repositories.Interfaces;
 
 namespace PharmacyAIS.ViewModels;
 
 public class SuppliersOrderViewModel:ViewModelBase
 {
+    private ISupplieRepository _supplierRepository;
     public SuppliersOrderViewModel()
     {
+        _supplierRepository = Locator.Current.GetService<ISupplieRepository>();
         Title = "Заказы поставщикам";
         var searchFilter = this.WhenAnyValue(x => x.SearchString).Select(SearchFunc);
         _suppliesSource = new SourceList<Supplie>();
         _suppliesSource.Connect().Filter(searchFilter).Bind(out _supplies).Subscribe();
-        IList<Supplie> supplies = Locator.Current.GetService<DataBaseContext>().Supplie
-            .Include(p => p.Supplier)
-            .Include(p => p.SupplieProduct).ThenInclude(p=>p.Product)
-            .ToList();
+        IList<Supplie> supplies = _supplierRepository.GetSupplies().GetAwaiter().GetResult();
         _suppliesSource.AddRange(supplies);
 
 

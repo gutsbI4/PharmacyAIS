@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using PharmacyAIS.Repositories.Interfaces;
 using PharmacyAIS.Services;
 using ReactiveUI;
 using Splat;
@@ -14,6 +15,7 @@ namespace PharmacyAIS.ViewModels
     internal class AuthorizeViewModel : ViewModelBase
     {
         private readonly IWindowService _windowService;
+        private readonly IUserRepository _userRepository;
         private string _login;
         public string Login
         {
@@ -38,15 +40,15 @@ namespace PharmacyAIS.ViewModels
         {
             AuthorizeCommand = ReactiveCommand.CreateFromObservable<Unit>(AuthorizeUser);
             _windowService = Locator.Current.GetService<IWindowService>();
+            _userRepository = Locator.Current.GetService<IUserRepository>();
         }
         private IObservable<Unit> AuthorizeUser()
         {
-            return Observable.Start(() =>
+            return Observable.Start( () =>
             {
                 Result = String.Empty;
                 Thread.Sleep(1000);
-                var db = Locator.Current.GetService<DataBaseContext>();
-                var user = db.User.FirstOrDefault(x => x.Username == Login && x.Password == Password);
+                var user = _userRepository.Login(Login, Password).GetAwaiter().GetResult();
                 if (user != null)
                 {
                     var windowViewModel = new MainWindowViewModel(user);

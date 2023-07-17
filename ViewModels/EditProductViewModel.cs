@@ -11,6 +11,7 @@ using ReactiveUI.Validation.Extensions;
 using Splat;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
@@ -96,10 +97,7 @@ namespace PharmacyAIS.ViewModels
             Price = product.Price;
             Manufacturer = product.Manufacturer.Name;
 
-            var db = Locator.Current.GetService<DataBaseContext>();
-            Units = db.Unit.ToList();
-            ProductsNames = db.Product.Select(p => p.Name).ToList();
-            ProductsManufacturers = db.Manufacturer.Select(p => p.Name).ToList();
+            Initialize().GetAwaiter();
 
             ConfirmCommand = ReactiveCommand.CreateFromTask(ConfirmEdit, canExecute: this.IsValid());
 
@@ -109,6 +107,15 @@ namespace PharmacyAIS.ViewModels
             this.ValidationRule(vm => vm.Price, price => price != null && price > 0, "Поле не может быть пустым или нулевым!");
             this.ValidationRule(vm => vm.QuantityInStock, quantity => quantity != null, "Поле не может быть пустым!");
         }
+        private async Task Initialize()
+        {
+            Units = await _productRepository.GetDosageUnits();
+            var products = await _productRepository.GetProducts();
+            ProductsNames = products.Select(x => x.Name).Distinct().ToList();
+            var manufacturers = await _productRepository.GetProducts();
+            ProductsManufacturers = manufacturers.Select(x=>x.Manufacturer.Name).Distinct().ToList();
+        }
+
         public void EditImage(string path)
         {
             EditingProduct.Image = path;

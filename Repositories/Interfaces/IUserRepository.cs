@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace PharmacyAIS.Repositories.Interfaces
 {
-    public interface IProductRepository
+    public interface IUserRepository
     {
-        Task EditProduct(int productId,Product editingProduct);
-        Task<List<Product>> GetProducts();
-        Task<List<Unit>> GetDosageUnits();
+        Task<User?> Login(string name, string password);
+        Task<List<User>> GetUsers();
     }
 }

@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using DynamicData;
 using Microsoft.EntityFrameworkCore;
 using PharmacyAIS.Models;
+using PharmacyAIS.Repositories.Interfaces;
 using PharmacyAIS.Services;
 using ReactiveUI;
 using Splat;
@@ -14,26 +15,21 @@ namespace PharmacyAIS.ViewModels;
 
 public class HomeViewModel:ViewModelBase
 {
+    private readonly IClientOrderRepository _orderRepository;
+    private readonly IProductRepository _productRepository;
     public HomeViewModel()
     {
+        _orderRepository = Locator.Current.GetService<IClientOrderRepository>();
+        _productRepository = Locator.Current.GetService<IProductRepository>();
         Title = "Главная";
         _ordersSource = new SourceList<Order>();
         _ordersSource.Connect().Filter(NoDoneOrderFunc()).Bind(out _orders).Subscribe();
-        IList<Order> orders = Locator.Current.GetService<DataBaseContext>().Order
-            .Include(p => p.Customer)
-            .Include(p => p.Status)
-            .Include(p => p.ProductOrder).ThenInclude(p => p.Product)
-            .ToList();
-            _ordersSource.AddRange(orders);
-
+        IList<Order> orders = _orderRepository.GetOrders().GetAwaiter().GetResult();
         _productSource = new SourceList<Product>();
         _productSource.Connect().Filter(EndProducts()).Bind(out _products).Subscribe();
-        IList<Product> products = Locator.Current.GetService<DataBaseContext>().Product
-            .Include(p=>p.Unit)
-            .ToList();
+        IList<Product> products = _productRepository.GetProducts().GetAwaiter().GetResult();
         _productSource.AddRange(products);
-
-
+        _ordersSource.AddRange(orders);
     }
 
     private SourceList<Order> _ordersSource;

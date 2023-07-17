@@ -14,6 +14,7 @@ using DynamicData.Binding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using PharmacyAIS.Models;
+using PharmacyAIS.Repositories.Interfaces;
 using PharmacyAIS.Services;
 using PharmacyAIS.Views;
 using ReactiveUI;
@@ -21,18 +22,20 @@ using Splat;
 
 namespace PharmacyAIS.ViewModels;
 
-// TODO: Исправить проблему с сортировкой для DataGrid, путем добавления нового листа
 public class ProductsViewModel:ViewModelBase
 {
     private readonly IViewModelService _viewModelService;
+    private readonly IProductRepository _productRepository;
+    private readonly IManufacturerRepository _manufacturerRepository;
     public ProductsViewModel()
     {
         _viewModelService = Locator.Current.GetService<IViewModelService>();
+        _productRepository = Locator.Current.GetService<IProductRepository>();
+        _manufacturerRepository = Locator.Current.GetService<IManufacturerRepository>();
         Title = "Лекарства";
-        _manufacturers = new ObservableCollection<FilterModel<Manufacturer>>(Locator.Current.GetService<DataBaseContext>()
-            .Manufacturer
-            .Select(p => new FilterModel<Manufacturer>() { isChecked = true, Value = p })
-            .ToList());
+        _manufacturers = new ObservableCollection<FilterModel<Manufacturer>>(_manufacturerRepository.GetManufacturers().GetAwaiter().GetResult()
+                        .Select(p => new FilterModel<Manufacturer>() { isChecked = true, Value = p })
+                        .ToList());
         var manufacturersRename = _manufacturers.ToObservableChangeSet().AutoRefresh(f => f.isChecked)
             .Filter(f => f.isChecked).ToCollection().Select(ManufacturerFilterFunc);
         var searchFilter = this.WhenAnyValue(x => x.SearchString).Select(SearchFunc);
@@ -54,10 +57,7 @@ public class ProductsViewModel:ViewModelBase
         });
         _productsSource = new SourceList<Product>();
         _productsSource.Connect().Filter(manufacturersRename).Filter(searchFilter).Sort(sort).Bind(out _products).Subscribe();
-        IList<Product> products = Locator.Current.GetService<DataBaseContext>().Product
-            .Include(p => p.Unit)
-            .Include(p => p.Manufacturer)
-            .ToList();
+        IList<Product> products = _productRepository.GetProducts().GetAwaiter().GetResult();
         _productsSource.AddRange(products);
         
 
